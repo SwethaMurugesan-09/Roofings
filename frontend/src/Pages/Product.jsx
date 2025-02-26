@@ -1,8 +1,10 @@
 import React from "react";
 import '../styles/Product.css'
-import { productsData } from "../assets/projectsData";
+import { useNavigate } from "react-router-dom";
+import { productsData } from "../assets/products";
 
 const Product = () => {
+    const navigate = useNavigate();
   return (
     <div className="product-container">
       <h1 className="product-header"> Products</h1>
@@ -12,7 +14,7 @@ const Product = () => {
             <img src={products.img} className="products-img" />
             <h2>{products.name}</h2>
             <p className="products-category">{products.category}</p>
-            <button className="products-button">View details</button>
+            <button onClick={() => navigate(`/products/${products._id}`)} className="products-button">View details</button>
           </div>
         ))}
       </div>
