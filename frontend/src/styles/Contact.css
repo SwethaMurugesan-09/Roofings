@@ -1,0 +1,43 @@
+.contact-container h1{
+    text-align: center;
+    margin:50px;
+    font-size: 50px;
+    margin-bottom: 60px;
+}
+.contact-container p{
+    text-align: center;
+    font-size: 25px;
+}
+.contact-btn-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-left: 35%;
+    margin-top: 60px;
+}
+.contact-button{
+    padding: 15px 25px;
+    background-color:#0591FA ;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border-style: none;
+}
+.contact-button-number{
+    padding: 15px 25px;
+    background-color:#0591FA ;
+    border-radius: 10px;
+    font-size: 20px;
+    border-style: none;
+}
+.contact-map{
+    margin-top: 40px;
+}
+.contact-map-btn{
+    padding: 15px 25px;
+    border-color:#0591FA;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 47%;
+}

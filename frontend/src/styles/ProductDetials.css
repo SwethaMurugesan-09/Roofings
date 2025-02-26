@@ -23,12 +23,22 @@
     max-width: 53%;
     width: 53%;
 }
-
+.product-detials-desc{
+    line-height: 4cqb;
+}
 .product-detials-btn{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.product-detials-contactbtn{
     padding: 15px 25px;
-    border-color:#0591FA ;
-    border-radius: 10px;
+    background-color:#0591FA ;
     cursor: pointer;
+    border-style: none;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 .product-detials-favbtn{
@@ -36,4 +46,6 @@
     border-color:#0591FA ;
     border-radius: 10px;
     cursor: pointer;
+    font-size: 16px;
+
 }

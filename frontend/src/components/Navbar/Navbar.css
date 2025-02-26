@@ -47,7 +47,7 @@
     text-decoration: none;
   }
   .nav-menu li a:hover {
-    background-color: #a49e9e;
+    color:#0591FA;
     border-radius: 1px;
   }
   .nav-login{
