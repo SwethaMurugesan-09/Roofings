@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import logo from '../Assets/logo.avif';  
+import logo from '../../assets/logo.png';  
 import './Navbar.css';
+
 
 const Navbar = () => {
 
@@ -9,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="nav">
-        <img src="" alt="Logo" /> 
+        <img src={logo} alt="Logo" /> 
         <p>Roofings</p>
       </div>
       <div className="nav-menu">

@@ -1,0 +1,22 @@
+.product-header
+{
+    text-align: center;
+}
+.products{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px;
+    margin-left: 50px!important;
+}
+.products-img{
+    width: 250px;
+    height: 270px;
+    border-radius: 7px;
+}
+.products-button{
+    padding: 15px 25px;
+    border-color:#0591FA ;
+    border-radius: 10px;
+    cursor: pointer;
+}
