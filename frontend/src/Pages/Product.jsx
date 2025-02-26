@@ -12,9 +12,9 @@ const Product = () => {
         {productsData.map((products) => (
           <div key={products._id} className="">
             <img src={products.img} className="products-img" />
-            <h2>{products.name}</h2>
-            <p className="products-category">{products.category}</p>
-            <button onClick={() => navigate(`/products/${products._id}`)} className="products-button">View details</button>
+            <h2 className="products-name">{products.name}</h2>
+            {/* <p className="products-category">{products.category}</p> */}
+            <button onClick={() => navigate(`/products/${products._id}`)} className="products-button">view details</button>
           </div>
         ))}
       </div>

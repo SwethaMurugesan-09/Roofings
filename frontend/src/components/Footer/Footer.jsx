@@ -4,6 +4,7 @@ import './Footer.css'
 const Footer = () => {
   return (
     <div className='footer-main'>
+            <hr className='footer-line' />
     <div className='footer-container'>
         <div className='footer-start'>
             <h1>Sun Roofings</h1>
@@ -21,7 +22,8 @@ const Footer = () => {
             <div>Privacy Policy</div>
         </div>
     </div>
-    <h4>@2025Sun Roofing Pvt. All rights reserved.</h4>
+    <hr className='footer-line1' />
+    <h4>@2025 Sun Roofing Pvt. All rights reserved.</h4>
     </div>
   )
 }

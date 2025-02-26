@@ -1,13 +1,19 @@
 .product-header
 {
     text-align: center;
+    margin-top: 40px;
+    font-size: 43px;
 }
 .products{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 100px;
     padding: 30px;
     margin-left: 50px!important;
+    max-width: 250px;
+}
+.products-name{
+    text-align: center;
 }
 .products-img{
     width: 250px;
@@ -19,4 +25,6 @@
     border-color:#0591FA ;
     border-radius: 10px;
     cursor: pointer;
+    font-size: 16px;
+    margin-left: 55px;
 }

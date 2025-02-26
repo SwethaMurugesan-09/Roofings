@@ -1,21 +1,40 @@
+.footer-line {
+    margin-top: 50px;
+    width: 73%;
+    height: 0.1px;
+    background-color: #0591FA ; 
+    border: none;
+    margin-bottom: 10px;
+}
+.footer-line1 {
+    width: 22%;
+    height: 0.1px;
+    background-color: #0591FA ; 
+    border: none;
+    margin-bottom: 10px;
+}
+.footer-main{
+    margin-top: 70px;
+}
 .footer-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin-left: 150px;
-    margin-right: 200px;
-    margin-top: 50px;
+    justify-content: space-around;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 .footer-start{
-    max-width: 400px;
+    max-width: 250px;
     line-height: 4cqb;
 }
 .footer-center{
     line-height: 4.5cqb;
 }
+
 .footer-end{
     line-height: 4.5cqb;
 }
+
 .footer-main h4{
     text-align: center;
     margin-bottom: 40px;
