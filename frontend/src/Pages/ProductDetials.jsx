@@ -24,6 +24,15 @@ const ProductDetails = () => {
     navigate('/favourites');
   };
 
+  const similarProducts = productsData
+  .filter(item => 
+    item.category.trim().toLowerCase() === product.category.trim().toLowerCase() &&
+    item._id !== product._id
+  )
+  .sort(() => Math.random() - 0.5) 
+  .slice(0, 4); 
+
+
 
   return (
     <div className="product-details-container">
@@ -42,7 +51,23 @@ const ProductDetails = () => {
                 <button onClick={()=>navigate('/contact')} className="product-detials-contactbtn">Contact us</button>
             </div>
         </div>
+    </div>
+    <div className="similiar-products">
+      <h3>Similiar Products</h3>
+      <div className="similar-products-container">
+          {similarProducts.length === 0 ? (
+            <p>No similar products available</p>
+          ) : (
+            similarProducts.map((item) => (
+              <div key={item._id} className="similar-product-item">
+                <img src={item.img} alt={item.name} className="similar-product-img" />
+                <p><strong>Material:</strong> {item.name}</p>
+                <button className="products-view-details-btn" onClick={() => navigate(`/products/${item._id}`)}>View Details</button>
+              </div>
+            ))
+          )}  
         </div>
+    </div>
     </div>
   );
 };

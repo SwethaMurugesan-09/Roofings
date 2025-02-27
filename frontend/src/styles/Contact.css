@@ -33,11 +33,20 @@
 .contact-map{
     margin-top: 40px;
 }
-.contact-map-btn{
+
+.contact-map-btn {
     padding: 15px 25px;
-    border-color:#0591FA;
+    border: 2px solid #0591FA; 
+    background-color: transparent; 
+    display: inline-block;
+    text-decoration: none;
     border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
-    margin-left: 47%;
+    text-align: center;
+    margin-left: 50%;
+    transform: translateX(-50%); 
+    transition: all 0.3s ease;
 }
+
+
