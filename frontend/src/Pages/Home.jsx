@@ -9,9 +9,17 @@ import img2 from '../assets/Home img2.jpeg';
 import img3 from '../assets/Home img3.jpg';
 import '../styles/Home.css';
 import { useNavigate } from "react-router-dom";
+import nuvvucotto from '../assets/nuvocotto.jpg';
+import pioneer from '../assets/pioneer.png';
+import rockshield from '../assets/rockshield.jpg';
+import { Category } from '../assets/Category';
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/products?category=${category}`);
+  };
   return (
     <div>
     <div className='home-container'>
@@ -35,8 +43,28 @@ const Home = () => {
         </Swiper>
       </div>
     </div>
+    <div className='home-partners'>
+        <h3>Our Trusted Partners</h3>
+        <div>
+          <img src={nuvvucotto}/>
+          <img src={pioneer}/>
+          <img src={rockshield}/>
+        </div>
+    </div>
     <div className="home-category">
-        <p>Choose the category</p>
+        <h2>Choose the category</h2>
+        <div className='home-category-container'>
+          {Category.map((category) => (
+          <div key={category._id} className="home-category-item" onClick={() => handleCategoryClick(category.category)}>
+                <div>
+                    <img src={category.img} className="home-category-img" />
+                </div>
+                <div>
+                  <p className="home-category-name">{category.category}</p>
+                </div>
+            </div>
+            ))}
+        </div>
     </div>
     </div>
   );

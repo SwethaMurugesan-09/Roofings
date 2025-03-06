@@ -13,6 +13,29 @@
     margin-right: 20px;
     max-width: 250px;
 }
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+    width: 40%;
+    gap: 30px;
+}
+.search-box {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.category-dropdown {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
 .products div {
     display: flex;
     flex-direction: column;
