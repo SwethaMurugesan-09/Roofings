@@ -35,9 +35,9 @@ const Home = () => {
         </Swiper>
       </div>
     </div>
-    {/* <div className="home-category">
+    <div className="home-category">
         <p>Choose the category</p>
-    </div> */}
+    </div>
     </div>
   );
 };

@@ -17,7 +17,8 @@
 }
 .contact-button{
     padding: 15px 25px;
-    background-color:#0591FA ;
+    background-color: #02345a;
+    color: aliceblue;
     border-radius: 10px;
     cursor: pointer;
     font-size: 20px;
@@ -25,7 +26,8 @@
 }
 .contact-button-number{
     padding: 15px 25px;
-    background-color:#0591FA ;
+    background-color: #02345a;
+    color:aliceblue ;
     border-radius: 10px;
     font-size: 20px;
     border-style: none;
@@ -36,8 +38,7 @@
 
 .contact-map-btn {
     padding: 15px 25px;
-    border: 2px solid #0591FA; 
-    background-color: transparent; 
+    border: 2px solid #02345a;
     display: inline-block;
     text-decoration: none;
     border-radius: 10px;

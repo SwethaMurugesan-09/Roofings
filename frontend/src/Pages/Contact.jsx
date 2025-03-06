@@ -4,18 +4,17 @@ const Contact = () => {
   
   const address = "Erode to Karur Main Road, Kolathupalayam(Po), Aarapalayam-638152";
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-
   const openWhatsApp = () => {
     const phoneNumber = "6374386020"; 
     const message = encodeURIComponent("");
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
-
   return (
     <div className='contact-container'>
         <h1>Contact us</h1>
         <p>Erode to Karur Main Road, Kolathupalayam(Po)</p>
-        <p>Aarapalayam-638152</p>
+        <p>Aarapalayam- 638152</p>
+        <p>Erode District</p>
         <p><strong>Email: </strong>sunroofingindustries@gmail.com</p>
         <div className='contact-btn-container'>
              <button  onClick={openWhatsApp} className='contact-button'>Contact via whatsapp</button>
@@ -27,5 +26,4 @@ const Contact = () => {
     </div>
   )
 }
-
 export default Contact

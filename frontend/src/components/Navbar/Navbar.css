@@ -3,6 +3,7 @@
     justify-content: space-around;
     padding: 7px;
     box-shadow: 0 1px 3px -2px rgb(93, 93, 93);
+
 }
 .nav{
     display: flex;
@@ -15,14 +16,14 @@
   }
 .nav img{
   height: 50px;
-  width: 70px;
+  width: 80px;
 }
 .nav-menu{
     display: flex;
     align-items:center;
     list-style: none;
     gap: 50px;
-    color: #626262;
+    color: #9e0a0a;
     font-size: 20px;
     font-weight: 500;
   }
