@@ -2,8 +2,9 @@ const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-import {clerkMiddleware} from '@clerk/express'
-import { clerkWebhooks } from './controller/webhooks.js'
+const { clerkMiddleware } = require('@clerk/express');
+const { clerkWebhooks } = require('./controller/webhooks.js');
+
 
 const app = express();
 
