@@ -18,6 +18,7 @@ app.use(cors());
 app.use(clerkMiddleware())
 
 app.get('/', (req, res) => res.send("API working"));
+app.post('/webhooks',clerkWebhooks);
 
 const PORT = process.env.PORT || 5000;
 
