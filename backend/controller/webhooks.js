@@ -1,4 +1,5 @@
 const { Webhook } = require("svix");
+const User = require("../models/User.js");
 
 const clerkWebhooks = async (req, res) => {
     console.log("Webhook received:", req.body);
