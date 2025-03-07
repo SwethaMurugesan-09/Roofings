@@ -25,7 +25,8 @@ const Home = () => {
     <div className='home-container'>
       <div className='home-left'>
         <h2>Welcome</h2>
-        <p>At <strong>Sun Roofings</strong>, we take pride in providing top-quality roofing solutions for homes and businesses. With years of experience, skilled craftsmanship, and high-quality materials, we ensure durability, safety, and long-lasting protection for your property.</p>
+        <h3>Explore Our Best Products!</h3>
+        <p className='home-container-para'>At <strong>Sun Roofings</strong>, we take pride in providing top-quality roofing solutions for homes and businesses. With years of experience, skilled craftsmanship, and high-quality materials, we ensure durability, safety, and long-lasting protection for your property.</p>
         <button onClick={() => navigate("/products")} className='home-btn'>Get Started</button>
       </div>
       <div className='home-right'>
