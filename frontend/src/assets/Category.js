@@ -12,7 +12,7 @@ import fladern from './Fladern.jpg'
 import lim from './limburg.jpg'
 export const Category = [
     { _id: 1,img: munich,category:"Clay Roofing Tiles"},
-    { _id: 2,img: bergamo,category:"Concrete Roofing Tiles"},
+    { _id: 2,img: bergamo,category:"Concrete roofing tiles"},
     { _id: 3,img: upvc,category:"Clay Jali"},
     { _id: 4,img: fladern,category:"Ceramic Roofing Tiles"}
 ];

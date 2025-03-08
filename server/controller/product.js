@@ -57,3 +57,21 @@ export const getProductById = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+export const getUniqueCategories = async (req, res) => {
+    try {
+        const uniqueCategories = await Product.aggregate([
+            {
+                $group: {
+                    _id: "$category",
+                    image: { $first: "$image" } 
+                }
+            }
+        ]);
+
+        res.json({ success: true, categories: uniqueCategories });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+

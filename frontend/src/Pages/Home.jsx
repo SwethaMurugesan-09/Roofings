@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -12,11 +12,27 @@ import { useNavigate } from "react-router-dom";
 import nuvvucotto from '../assets/nuvocotto.jpg';
 import pioneer from '../assets/pioneer.png';
 import rockshield from '../assets/rockshield.jpg';
-import { Category } from '../assets/Category';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/product/categories");
+        const data = await response.json();
+        if (data.success) {
+          setCategories(data.categories);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+  
   const handleCategoryClick = (category) => {
     navigate(`/products?category=${category}`);
   };
@@ -55,13 +71,13 @@ const Home = () => {
     <div className="home-category">
         <h2>Choose the category</h2>
         <div className='home-category-container'>
-          {Category.map((category) => (
-          <div key={category._id} className="home-category-item" onClick={() => handleCategoryClick(category.category)}>
+          {categories.map((category) => (
+          <div key={category._id} className="home-category-item" onClick={() => handleCategoryClick(category._id)}>
                 <div>
-                    <img src={category.img} className="home-category-img" />
+                    <img src={category.image} className="home-category-img" />
                 </div>
                 <div>
-                  <p className="home-category-name">{category.category}</p>
+                  <p className="home-category-name">{category._id}</p>
                 </div>
             </div>
             ))}

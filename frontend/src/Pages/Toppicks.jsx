@@ -24,7 +24,7 @@ const Toppicks = () => {
         <div className="top-picks-container">
           {topPicks.map((item) => (
             <div key={item._id} className="top-pick-item">
-              <img src={item.img} alt={item.name} className="top-pick-img" />
+              <img src={item.image} alt={item.name} className="top-pick-img" />
               <div className="top-picks-detials">
                   <div>
                       <p><strong>Material:</strong> {item.name}</p>
