@@ -46,7 +46,7 @@ const AddProduct = () => {
         formData.append('dimension', productDetails.dimension);
 
         try {
-            let response = await fetch('http://localhost:5000/api/product/add-product', {
+            let response = await fetch('https://roofings-server.vercel.app/api/product/add-product', {
                 method: 'POST',
                 body: formData,
             });

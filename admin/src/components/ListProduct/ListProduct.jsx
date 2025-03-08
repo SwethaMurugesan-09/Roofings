@@ -13,7 +13,7 @@ const ListProduct = () => {
     
     const fetchInfo = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/product/getProduct');
+            const response = await fetch('https://roofings-server.vercel.app/api/product/getProduct');
             const data = await response.json();
             console.log("Fetched Data:", data); 
     
@@ -35,7 +35,7 @@ const ListProduct = () => {
     const removeProduct = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
             try {
-                await fetch(`http://localhost:5000/api/product/removeproduct/${id}`, { 
+                await fetch(`https://roofings-server.vercel.app/api/product/removeproduct/${id}`, { 
                     method: 'DELETE' 
                 });
                 fetchInfo(); // Refresh products
@@ -49,7 +49,7 @@ const ListProduct = () => {
     const updateProduct = async (productId) => {
         try {
             const productDetails = editProductDetails[productId];
-            const response = await fetch(`http://localhost:5000/api/product/updateproduct/${productId}`, {
+            const response = await fetch(`https://roofings-server.vercel.app/api/product/updateproduct/${productId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(productDetails),
