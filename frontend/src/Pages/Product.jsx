@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Product.css";
-import { productsData } from "../assets/products";
 
 const Product = () => {
     const navigate = useNavigate();
@@ -10,15 +9,42 @@ const Product = () => {
     const queryParams = new URLSearchParams(location.search);
     const selectedCategory = queryParams.get("category");
 
+    const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const categories = [...new Set(productsData.map((product) => product.category))];
+    const categories = [...new Set(products.map((product) => product.category))];
 
-    const filteredProducts = productsData.filter((product) => {
+    const filteredProducts = products.filter((product) => {
         const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
         const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesCategory && matchesSearch;
     });
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/api/product/getProduct");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch products");
+                }
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    setProducts(data);
+                } else if (data.products && Array.isArray(data.products)) {
+                    setProducts(data.products);
+                } else {
+                    throw new Error("Invalid product data format");
+                }            
+            } catch (err) {
+                setError(err.message);
+                setProducts([]);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const handleCategoryChange = (event) => {
         const category = event.target.value;
@@ -56,7 +82,7 @@ const Product = () => {
                 {filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
                         <div key={product._id} className="product-item">
-                            <img src={product.img} className="products-img" alt={product.name} />
+                            <img src={product.image} className="products-img" alt={product.name} />
                             <p className="products-name">{product.name}</p>
                             <button onClick={() => navigate(`/products/${product._id}`)} className="products-button">
                                 View Details

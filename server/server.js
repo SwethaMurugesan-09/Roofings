@@ -1,24 +1,27 @@
-const dotenv = require('dotenv');
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const { clerkMiddleware } = require('@clerk/express');
-const { clerkWebhooks } = require('./controller/webhooks.js');
-
+import express from 'express'
+import cors from 'cors'
+import 'dotenv/config'
+import connectDB from './config/db.js'
+import { clerkWebhooks } from './controller/webhooks.js'
+import connectCloudinary from './config/cloudinary.js'
+import productRoutes from './routes/productRoutes.js'
 
 const app = express();
 
-dotenv.config();
+app.use(express.json());
 
-(async () => {
-    await connectDB();
-})();
+await connectDB();
+await connectCloudinary()
 
 app.use(cors());
-app.use(clerkMiddleware())
+
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => res.send("API working"));
 app.post('/webhooks',clerkWebhooks);
+
+
+app.use('/api/product',productRoutes)
 
 const PORT = process.env.PORT || 5000;
 

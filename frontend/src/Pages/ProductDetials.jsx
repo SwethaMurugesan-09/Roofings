@@ -1,12 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { productsData } from "../assets/products";
 import '../styles/ProductDetials.css'
 
 const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();  
-  const product = productsData.find((item) => item._id === parseInt(id)); 
+  const [product, setProduct] = useState(null);
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/product/getProduct/${id}`);
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Product not found");
+        }
+
+        setProduct(data.product);
+
+        const allProductsResponse = await fetch("http://localhost:5000/api/product/getProduct");
+        const allProductsData = await allProductsResponse.json();
+
+        if (!allProductsResponse.ok || !allProductsData.success) {
+          throw new Error("Failed to fetch products");
+        }
+
+        setSimilarProducts(
+          allProductsData.products
+            .filter(
+              (item) =>
+                item.category.trim().toLowerCase() === data.product.category.trim().toLowerCase() &&
+                item._id !== data.product._id
+            )
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 4)
+        );
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
+
 
   if (!product) {
     return <h2>Product not found</h2>; 
@@ -24,22 +66,13 @@ const ProductDetails = () => {
     navigate('/favourites');
   };
 
-  const similarProducts = productsData
-  .filter(item => 
-    item.category.trim().toLowerCase() === product.category.trim().toLowerCase() &&
-    item._id !== product._id
-  )
-  .sort(() => Math.random() - 0.5) 
-  .slice(0, 4); 
-
-
 
   return (
     <div className="product-details-container">
     <h1 className="product-details-header">{product.category}</h1>
     <div className="product-detials-container">
         <div className="product-details-left">
-            <img src={product.img} className="product-details-img" alt={product.category} />
+            <img src={product.image} className="product-details-img" alt={product.category} />
         </div>
         <div className="product-detials-right">
             <p><strong>Material: </strong> {product.name}</p>

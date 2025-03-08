@@ -1,7 +1,7 @@
-const { Webhook } = require("svix");
-const User = require("../models/User.js");
+import {Webhook} from "svix";
+import User from "../models/User.js"
 
-const clerkWebhooks = async (req, res) => {
+export const clerkWebhooks =async(req,res)=>{
     console.log("Webhook received:", req.body);
     try{
         //create a Svix instance with clerk webhook secret.
@@ -24,7 +24,9 @@ const clerkWebhooks = async (req, res) => {
                 const userData={
                     _id:data.id,
                     email:data.email_addresses[0].email_address,
-                    name:data.first_name+" "+data.last_name
+                    name:data.first_name+" "+data.last_name,
+                    image:data.image_url,
+                    resume:''
                 }
                 await User.create(userData)
                 res.json({})
@@ -33,7 +35,8 @@ const clerkWebhooks = async (req, res) => {
             case 'user.updated':{
                 const userData={
                     email:data.email_addresses[0].email_address,
-                    name:data.first_name+" "+data.last_name
+                    name:data.first_name+" "+data.last_name,
+                    image:data.image_url,
                 }
                 await User.findByIdAndUpdate(data.id,userData)
                 res.json({})
@@ -54,4 +57,3 @@ const clerkWebhooks = async (req, res) => {
         res.json({success:false,message:'Webhooks error'})
     }
 }
-module.exports = { clerkWebhooks };
