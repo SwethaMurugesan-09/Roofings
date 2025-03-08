@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/product/categories");
+        const response = await fetch("https://roofings-server.vercel.app/api/product/categories");
         const data = await response.json();
         if (data.success) {
           setCategories(data.categories);
