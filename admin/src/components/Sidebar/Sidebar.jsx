@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Sidebar = () => {
   return (
     <div className='sidebar'>
-        <Link to={'/addproduct'} style={{textDecoration:"none"}}>
+        <Link to={'/'} style={{textDecoration:"none"}}>
             <div className='sidebar-item'>
                 <button>Add Products</button>
             </div>
