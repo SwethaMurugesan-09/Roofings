@@ -1,10 +1,13 @@
-
-function App() {
+import React from 'react'
+import Navbar from './components/Navbar/Navbar'
+import Admin from './pages/Admin/Admin'
+const App = () => {
   return (
     <div>
-     Hello 
+      <Navbar/>
+      <Admin/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
