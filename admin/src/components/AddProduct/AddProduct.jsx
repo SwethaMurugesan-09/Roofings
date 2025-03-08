@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './AddProduct.css' 
 import upload from '../../assets/upload.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AddProduct = () => {
-    const [image, setImage] = useState(false);
+    const [image, setImage] = useState(null);
     const [productDetails, setProductDetails] = useState({
         name: "",
-        image: "",
         category: "",
         description: "",
         colour:"",
@@ -24,41 +26,49 @@ const AddProduct = () => {
         setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
     };
     
-
     const addProduct = async () => {
-       
-        console.log(productDetails);
-        let responseData;
-        let product = productDetails;
+        console.log("Adding product...");
         setError(null);
+        setLoading(true);
+
+        if (!image || !productDetails.name || !productDetails.category || !productDetails.description || !productDetails.colour || !productDetails.dimension) {
+            toast.error("All fields are required.");
+            setLoading(false);
+            return;
+        }
+
         let formData = new FormData();
-        formData.append('product', image);
-        
-        await fetch('http://localhost:5000', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-            },
-            body: formData,
-        }).then((resp) => resp.json()).then((data) => { responseData = data; });
-    
-        if (responseData.success) {
-            product.image = responseData.image_url;
-            console.log(product);
-            await fetch('http://localhost:5000/api/product/add-product', {
+        formData.append('image', image);
+        formData.append('name', productDetails.name);
+        formData.append('category', productDetails.category);
+        formData.append('description', productDetails.description);
+        formData.append('colour', productDetails.colour);
+        formData.append('dimension', productDetails.dimension);
+
+        try {
+            let response = await fetch('http://localhost:5000/api/product/add-product', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(product),
-            }).then((resp) => resp.json()).then((data) => {
-                data.success ? alert("Product added") : alert("Failed");
+                body: formData,
             });
-    
+
+            let responseData = await response.json();
+            console.log("API Response:", responseData);
+
+            if (responseData.success) {
+                toast.success("Product added successfully!");
+            } else {
+                toast.error(responseData.message || "Failed to add product.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setError("Something went wrong.");
+        } finally {
+            setLoading(false);
         }
     };
     return (
         <div className='addproduct'>
+            <ToastContainer />
             {error && <p className='error'>{error}</p>}
             <div className="addproduct-itemfield">
                 <p>Product title</p>

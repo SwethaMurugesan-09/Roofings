@@ -75,3 +75,43 @@ export const getUniqueCategories = async (req, res) => {
     }
 };
 
+export const removeProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+        await Product.findByIdAndDelete(id);
+        res.json({ success: true, message: "Product removed successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export const updateProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, colour, dimension, category, description } = req.body;
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+        
+        if (req.file) {
+            const imageUpload = await cloudinary.uploader.upload(req.file.path);
+            product.image = imageUpload.secure_url;
+        }
+        
+        product.name = name || product.name;
+        product.colour = colour || product.colour;
+        product.dimension = dimension || product.dimension;
+        product.category = category || product.category;
+        product.description = description || product.description;
+        
+        await product.save();
+        res.json({ success: true, product });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+};

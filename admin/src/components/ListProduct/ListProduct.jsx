@@ -1,191 +1,168 @@
 import React, { useEffect, useState } from 'react';
 import './ListProduct.css';
 
-const Listproduct = () => {
-  const [allProducts, setAllProducts] = useState([]);
-  const [editingProductId, setEditingProductId] = useState(null); 
-  const [editProductDetails, setEditProductDetails] = useState({}); 
-  const [searchTerm, setSearchTerm] = useState(''); 
+const ListProduct = () => {
+    const [allProducts, setAllProducts] = useState([]);
+    const [editingProductId, setEditingProductId] = useState(null);
+    const [editProductDetails, setEditProductDetails] = useState({});
+    const [searchTerm, setSearchTerm] = useState(''); 
 
-  const fetchInfo = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/allproducts');
-      const data = await response.json();
-      setAllProducts(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchInfo();
-  }, []);
-
-  const removeProduct = async (id) => {
-    const confirmDeletion = window.confirm("Are you sure you want to delete the product?");
+    useEffect(() => {
+        fetchInfo();
+    }, []);
     
-    if (confirmDeletion) {
-      try {
-        await fetch('http://localhost:5000/removeproduct', {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id }), 
-        });
-        await fetchInfo(); 
-      } catch (error) {
-        console.error('Error removing product:', error);
-      }
-    } else {
-      console.log("Product deletion canceled.");
-    }
-  };
-  
+    const fetchInfo = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/product/getProduct');
+            const data = await response.json();
+            console.log("Fetched Data:", data); 
+    
+            if (Array.isArray(data)) {
+                setAllProducts(data);
+            } else if (Array.isArray(data.products)) {
+                setAllProducts(data.products);
+            } else {
+                console.error("Unexpected API response format:", data);
+                setAllProducts([]); 
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setAllProducts([]); 
+        }
+    };
+    
 
-  const updateProduct = async (productId) => {
-    try {
-      const productDetails = editProductDetails[productId]; 
-      const updatedProductData = {
-        id: productId, 
-        name: productDetails.name,
-        pricePerKg: productDetails.pricePerKg,
-        category: productDetails.category || 'defaultCategory',
-      };
-      await fetch('http://localhost:5000/updateproduct', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedProductData), 
-      });
-      await fetchInfo();
-      setEditingProductId(null);
-    } catch (error) {
-      console.error('Error updating product:', error);
-    }
-  };
+    const removeProduct = async (id) => {
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            try {
+                await fetch(`http://localhost:5000/api/product/removeproduct/${id}`, { 
+                    method: 'DELETE' 
+                });
+                fetchInfo(); // Refresh products
+            } catch (error) {
+                console.error('Error removing product:', error);
+            }
+        }
+    };
+    
 
-  const handleEditChange = (e, productId) => {
-    const { name, value } = e.target;
-    setEditProductDetails((prevDetails) => ({
-      ...prevDetails,
-      [productId]: {
-        ...prevDetails[productId],
-        [name]: value,
-      },
-    }));
-  };
+    const updateProduct = async (productId) => {
+        try {
+            const productDetails = editProductDetails[productId];
+            const response = await fetch(`http://localhost:5000/api/product/updateproduct/${productId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productDetails),
+            });
+            const result = await response.json();
+            if (result.success) {
+                fetchInfo();
+                setEditingProductId(null);
+            }
+        } catch (error) {
+            console.error('Error updating product:', error);
+        }
+    };
+    
 
-  const startEditing = (productId, product) => {
-    setEditingProductId(productId);
-    setEditProductDetails((prevDetails) => ({
-      ...prevDetails,
-      [productId]: product,
-    }));
-  };
-  const filteredProducts = allProducts.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+    const handleEditChange = (e, productId) => {
+        const { name, value } = e.target;
+        setEditProductDetails((prevDetails) => ({
+            ...prevDetails,
+            [productId]: {
+                ...prevDetails[productId],
+                [name]: value,
+            },
+        }));
+    };
 
-  return (
-    <div className="listproduct">
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="search products..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} 
-          className="search-input"
-        />
-      </div>
+    const startEditing = (productId, product) => {
+        setEditingProductId(productId);
+        setEditProductDetails({ ...editProductDetails, [productId]: product });
+    };
 
-      <div className="listproduct-format">
-        <p>Products</p>
-        <p>Title</p>
-        <p>Price</p>
-        <p>Category</p>
-        <p>Update</p>
-        <p>Remove</p>
-      </div>
+    const filteredProducts = Array.isArray(allProducts)
+    ? allProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+    ) 
+    : [];
 
-      <div className="listproduct-allproducts">
-        <hr />
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product, index) => (
-            <React.Fragment key={index}>
-              <div className="listproduct-format-main">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="listproduct-img"
+    return (
+        <div className="listproduct">
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
                 />
-                {editingProductId === product._id ? (
-                  <>
-                    <input
-                      type="text"
-                      name="name"
-                      value={editProductDetails[product._id]?.name || ''} 
-                      onChange={(e) => handleEditChange(e, product._id)}
-                    />
-                    <input
-                      type="text"
-                      name="pricePerKg"
-                      value={editProductDetails[product._id]?.pricePerKg || ''} 
-                      onChange={(e) => handleEditChange(e, product._id)}
-                    />
-                    <select
-                      name="category"
-                      value={
-                        editProductDetails[product._id]?.category ||
-                        'defaultCategory'
-                      }
-                      onChange={(e) => handleEditChange(e, product._id)}
-                    >
-                      <option value="vegetables">Vegetables</option>
-                      <option value="fruits">Fruits</option>
-                      <option value="dryfruits">Dryfruits</option>
-                    </select>
-                    <button
-                      onClick={() => updateProduct(product._id)}
-                      className="listproduct-btn"
-                    >
-                      Save
-                    </button>
-                  </>
+            </div>
+
+            <div className="listproduct-format">
+                <p>Products</p>
+                <p>Name</p>
+                <p>Dimension</p>
+                <p>Colour</p>
+                <p>Update</p>
+                <p>Remove</p>
+            </div>
+
+            <div className="listproduct-allproducts">
+                <hr />
+                {filteredProducts.length > 0 ? (
+                    filteredProducts.map((product) => (
+                        <React.Fragment key={product._id}>
+                            <div className="listproduct-format-main">
+                                <img src={product.image} alt={product.name} className="listproduct-img" />
+                                {editingProductId === product._id ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={editProductDetails[product._id]?.name || ''}
+                                            onChange={(e) => handleEditChange(e, product._id)}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="dimension"
+                                            value={editProductDetails[product._id]?.dimension || ''}
+                                            onChange={(e) => handleEditChange(e, product._id)}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="colour"
+                                            value={editProductDetails[product._id]?.colour || ''}
+                                            onChange={(e) => handleEditChange(e, product._id)}
+                                        />
+                                        <button onClick={() => updateProduct(product._id)} className="listproduct-btn">
+                                            Save
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p>{product.name}</p>
+                                        <p>{product.dimension}</p>
+                                        <p>{product.colour}</p>
+                                        <button onClick={() => startEditing(product._id, product)} className="listproduct-btn">
+                                            Edit
+                                        </button>
+                                    </>
+                                )}
+                                <button onClick={() => removeProduct(product._id)} className="listproduct-btn">
+                                    Remove
+                                </button>
+                            </div>
+                            <hr />
+                        </React.Fragment>
+                    ))
                 ) : (
-                  <>
-                    <p>{product.name}</p>
-                    <p>${product.pricePerKg}</p>
-                    <p>{product.category}</p>
-                    <button
-                      onClick={() => startEditing(product._id, product)}
-                      className="listproduct-btn"
-                    >
-                      Edit
-                    </button>
-                  </>
+                    <p>No products found</p>
                 )}
-                <button
-                  onClick={() => removeProduct(product._id)}
-                  className="listproduct-btn"
-                >
-                  Remove
-                </button>
-              </div>
-              <hr />
-            </React.Fragment>
-          ))
-        ) : (
-          <p>No products found</p> 
-        )}
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 };
 
-export default Listproduct;
+export default ListProduct;

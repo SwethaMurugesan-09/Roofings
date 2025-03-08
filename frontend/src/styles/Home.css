@@ -123,14 +123,14 @@
   }
 
   .home-category-container img{
-        width: 350px;
-        height: 300px;
+        width: 270px;
+        height: 220px;
         cursor: pointer;
         border-radius:10px ;
   }
   .home-category-container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 70px;
     padding: 30px;
     margin-left: 100px;
