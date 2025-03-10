@@ -7,14 +7,26 @@
     border-radius: 6px;
     background: white;
 }
+.addproduct-btn{
+    cursor: pointer;
+    background-color:#02345a;
+    border-radius: 10px;
+    padding: 15px 50px;
+    color: aliceblue;
+    border-style: none;
+    margin-left: 50px;
+    font-size: 16px;
+}
 .addproduct-itemfield{
     width: 100%;
     color: #7b7b7b;
     font-size: 16px;
 }
 .addproduct-itemfield p {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 400;
+    color: #02345a;
+
 }
 
 .addproduct-itemfield input{

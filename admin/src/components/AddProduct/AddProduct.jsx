@@ -142,12 +142,12 @@ const AddProduct = () => {
                     hidden
                 />
             </div>
-            <button
+            <button 
                 onClick={addProduct}
                 className='addproduct-btn'
                 disabled={loading}
             >
-                {loading ? 'Adding...' : 'ADD'}
+                {loading ? 'Adding...' : 'Add Product'}
             </button>
         </div>
     );

@@ -17,7 +17,7 @@
     width: 100%;
     max-width: 300px;
     font-size: 14px;
-    border: 1px solid #515151;
+    border: 1px solid #02345a;
     border-radius: 5px;
   }
   
@@ -42,6 +42,7 @@
 .listproduct-format p {
     margin: 0;
     text-align: center;
+    color:#02345a;
 }
 
 .listproduct-allproducts {
@@ -67,10 +68,13 @@
 
 .listproduct-btn {
     cursor: pointer;
-    background-color: #dcd5d5;
-    width: 70px;
-    height: 30px;
+    background-color:#02345a;
+    border-radius: 10px;
+    padding: 15px 25px;
+    color: aliceblue;
+    border-style: none;
     margin-left: 50px;
+    font-size: 14px;
 }
 
 .listproduct-icon:hover {
@@ -84,7 +88,6 @@ hr {
     margin: 10px 0;
 }
 
-/* Edit Product Form */
 .edit-product-form {
     margin-top: 20px;
     padding: 20px;
