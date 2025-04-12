@@ -93,10 +93,10 @@ const ProductDetails = () => {
           ) : (
             similarProducts.map((item) => (
               <div key={item._id} className="similar-product-item">
-                <img src={item.img} alt={item.name} className="similar-product-img" />
+                <img src={item.image} alt={item.name} className="similar-product-img" />
                 <div className="similiar-products-material">
                   <div>
-                      <p><strong>Material:</strong> {item.name}</p>
+                      <p>{item.name}</p>
                     </div>
                     <div>
                       <button className="products-view-details-btn" onClick={() => navigate(`/products/${item._id}`)}>View Details</button>

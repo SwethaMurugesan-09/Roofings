@@ -51,7 +51,7 @@
 
 .listproduct-format-main {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) repeat(4, minmax(0, 1fr));
     gap: 20px;
     padding: 15px;
     background-color: white;
@@ -60,21 +60,20 @@
 }
 
 .listproduct-img {
+    width: 100%;
     max-width: 200px;
-    max-height: 150px;
-    object-fit: contain;
-    border-radius: 8px;
+    height: auto;
 }
 
 .listproduct-btn {
     cursor: pointer;
     background-color:#02345a;
     border-radius: 10px;
-    padding: 15px 25px;
+    padding: 13px 23px;
     color: aliceblue;
     border-style: none;
     margin-left: 50px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .listproduct-icon:hover {

@@ -121,9 +121,11 @@ const AddProduct = () => {
                     className='add-product-selector'
                 >
                     <option>--select--</option>
-                    <option value="Concrete Roofing Tiles">Concrete Roofing Tiles</option>
+                    <option value="Clay False Roofing Tiles">Clay False Roofing Tiles</option>
                     <option value="Clay Tiles">Clay Tiles</option>
                     <option value="UPVC Pipes">UPVC Pipes</option>
+                    <option value="Concrete Roofing Tiles">Concrete Roofing Tiles</option>
+                    <option value="Ceramic Roofing Tiles">Ceramic Roofing Tiles</option>
                 </select>
             </div>
             <div className="addproduct-itemfield">

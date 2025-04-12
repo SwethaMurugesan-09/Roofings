@@ -27,7 +27,7 @@ const Toppicks = () => {
               <img src={item.image} alt={item.name} className="top-pick-img" />
               <div className="top-picks-detials">
                   <div>
-                      <p><strong>Material:</strong> {item.name}</p>
+                      <p> {item.name}</p>
                   </div>
                   <div>
                       <button onClick={() => navigate(`/products/${item._id}`)} className="top-picks-btn">View</button>
