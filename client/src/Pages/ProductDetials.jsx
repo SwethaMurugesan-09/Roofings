@@ -80,7 +80,7 @@ const ProductDetails = () => {
             <p><strong>Dimension: </strong>{product.dimension}</p>
             <p className="product-detials-desc">{product.description}</p>
             <div className="product-detials-btn">
-                <button onClick={handleAddToTopPicks} className="product-detials-favbtn">Add to Top Picks</button>
+                <button onClick={handleAddToTopPicks} className="product-detials-favbtn">Add to Cart</button>
                 <button onClick={()=>navigate('/contact')} className="product-detials-contactbtn">Contact us</button>
             </div>
         </div>

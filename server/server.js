@@ -4,7 +4,7 @@ import 'dotenv/config'
 import connectDB from './config/db.js'
 import connectCloudinary from './config/cloudinary.js'
 import productRoutes from './routes/productRoutes.js'
-
+import userRoutes from './routes/userRoutes.js';
 const app = express();
 
 app.use(express.json());
@@ -30,6 +30,7 @@ app.get('/', (req, res) => res.send("API working"));
 
 
 app.use('/api/product',productRoutes)
+app.use('/api/user', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 

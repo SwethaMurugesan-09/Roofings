@@ -7,7 +7,7 @@ import ProductDetials from "./Pages/ProductDetials";
 import Contact from "./Pages/Contact";
 import Toppicks from "./Pages/Toppicks";
 import Footer from "./components/Footer/Footer";
-
+import Login from "./Pages/Login";
 function App() {
   return (
     <div>
@@ -19,6 +19,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetials/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/favourites" element={<Toppicks/>}/>
+          <Route path="/login" element={<Login />}/>
       </Routes>
       <Footer/>
     </>

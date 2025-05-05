@@ -36,9 +36,13 @@ const Toppicks = () => {
                 <div className="top-picks-button">
                    <button onClick={() => handleRemove(item._id)}  className="top-picks-remove">Remove</button>
               </div>
-            </div>
+              </div>
           ))}
+          <div>
+                  <button className="top-picks-button">Proceed to checkout</button>
+              </div>
         </div>
+        
       )}
     </div>
   );
