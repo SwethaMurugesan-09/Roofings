@@ -12,7 +12,7 @@ const AuthPage = () => {
         console.log('Login attempted with:', formData);
 
         let responseData;
-        await fetch('https://grocery-management-backend.vercel.app/login', {
+        await fetch('https://roofings-server.vercel.app/api/user/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -40,7 +40,7 @@ const AuthPage = () => {
         console.log("Signup attempted with:", formData);
 
         let responseData;
-        await fetch('https://grocery-management-backend.vercel.app/signup', {
+        await fetch('https://roofings-server.vercel.app/api/user/register', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
