@@ -13,7 +13,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`https://roofings-server.vercel.app/api/product/getProduct/${id}`);
+        const response = await fetch(`http://localhost:5000/api/product/getProduct/${id}`);
         const data = await response.json();
 
         if (!response.ok || !data.success) {

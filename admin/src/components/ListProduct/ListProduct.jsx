@@ -13,7 +13,7 @@ const ListProduct = () => {
     
     const fetchInfo = async () => {
         try {
-            const response = await fetch('https://roofings-server.vercel.app/api/product/getProduct');
+            const response = await fetch('https://localhost:5000/api/product/getProduct');
             const data = await response.json();
             console.log("Fetched Data:", data); 
     

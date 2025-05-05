@@ -1,65 +1,81 @@
 import React, { useState } from 'react';
 import '../styles/Login.css'; 
+
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+
+    const [loginEmail, setLoginEmail] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
+
+    const [signupUsername, setSignupUsername] = useState('');
+    const [signupEmail, setSignupEmail] = useState('');
+    const [signupPassword, setSignupPassword] = useState('');
+    const [signupNumber, setSignupNumber] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const formData = { email, password };
-        console.log('Login attempted with:', formData);
+        if (!loginEmail || !loginPassword) {
+            alert("Please fill in all fields.");
+            return;
+        }
 
-        let responseData;
-        await fetch('https://roofings-server.vercel.app/api/user/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then((response) => response.json())
-        .then((data) => responseData = data)
-        .catch((error) => {
-            console.error("Error during login:", error);
-        });
-        if (responseData && responseData.success) {
-            localStorage.setItem('auth-token', responseData.token);
-            console.log("Token in localStorage:", localStorage.getItem('auth-token'));
-            window.location.replace("/");
-        } else {
-            alert(responseData ? responseData.errors : "User does not exist. Please create an account.");
+        try {
+            const response = await fetch('http://localhost:5000/api/user/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+            });
+
+            const data = await response.json();
+            console.log("Login response:", data);
+
+            if (response.ok && data.token) {
+                localStorage.setItem('auth-token', data.token);
+                window.location.replace("/");
+            } else {
+                alert(data.errors || data.message || "Login failed.");
+            }
+        } catch (err) {
+            console.error("Login error:", err);
+            alert("An error occurred. Please try again.");
         }
     };
 
     const handleSignup = async (e) => {
         e.preventDefault();
-        const formData = { username, email, password };
+        if (!signupUsername || !signupEmail || !signupPassword || !signupNumber) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const formData = {
+            username: signupUsername,
+            email: signupEmail,
+            password: signupPassword,
+            number: signupNumber,
+        };
+
         console.log("Signup attempted with:", formData);
 
-        let responseData;
-        await fetch('https://roofings-server.vercel.app/api/user/register', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then((response) => response.json())
-        .then((data) => responseData = data)
-        .catch((error) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/user/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+            console.log("Signup response:", data);
+
+            if (response.ok && data.token) {
+                localStorage.setItem('auth-token', data.token);
+                window.location.replace("/");
+            } else {
+                alert(data.errors || data.message || "Signup failed.");
+            }
+        } catch (error) {
             console.error("Error during signup:", error);
             alert("There was an error processing your request.");
-        });
-
-        if (responseData && responseData.success) {
-            localStorage.setItem('auth-token', responseData.token);
-            window.location.replace("/");
-        } else {
-            alert(responseData ? responseData.errors : "Email already registered.");
         }
     };
 
@@ -71,23 +87,25 @@ const AuthPage = () => {
                         <h2>Login</h2>
                         <form onSubmit={handleLogin}>
                             <div className="inputGroup">
-                                <label htmlFor="email">Email:</label>
+                                <label htmlFor="loginEmail">Email:</label>
                                 <input
                                     type="email"
-                                    id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    id="loginEmail"
+                                    value={loginEmail}
+                                    onChange={(e) => setLoginEmail(e.target.value)}
                                     className="input"
+                                    required
                                 />
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="password">Password:</label>
+                                <label htmlFor="loginPassword">Password:</label>
                                 <input
                                     type="password"
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="loginPassword"
+                                    value={loginPassword}
+                                    onChange={(e) => setLoginPassword(e.target.value)}
                                     className="input"
+                                    required
                                 />
                             </div>
                             <button type="submit" className="button">Login</button>
@@ -99,33 +117,47 @@ const AuthPage = () => {
                         <h2>Sign Up</h2>
                         <form onSubmit={handleSignup}>
                             <div className="inputGroup">
-                                <label htmlFor="username">Username:</label>
+                                <label htmlFor="signupUsername">Username:</label>
                                 <input
                                     type="text"
-                                    id="username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    id="signupUsername"
+                                    value={signupUsername}
+                                    onChange={(e) => setSignupUsername(e.target.value)}
                                     className="input"
+                                    required
                                 />
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="email">Email:</label>
+                                <label htmlFor="signupEmail">Email:</label>
                                 <input
                                     type="email"
-                                    id="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    id="signupEmail"
+                                    value={signupEmail}
+                                    onChange={(e) => setSignupEmail(e.target.value)}
                                     className="input"
+                                    required
                                 />
                             </div>
                             <div className="inputGroup">
-                                <label htmlFor="password">Password:</label>
+                                <label htmlFor="signupPassword">Password:</label>
                                 <input
                                     type="password"
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="signupPassword"
+                                    value={signupPassword}
+                                    onChange={(e) => setSignupPassword(e.target.value)}
                                     className="input"
+                                    required
+                                />
+                            </div>
+                            <div className="inputGroup">
+                                <label htmlFor="signupNumber">Phone Number:</label>
+                                <input
+                                    type="number"
+                                    id="signupNumber"
+                                    value={signupNumber}
+                                    onChange={(e) => setSignupNumber(e.target.value)}
+                                    className="input"
+                                    required
                                 />
                             </div>
                             <button type="submit" className="button">Sign Up</button>

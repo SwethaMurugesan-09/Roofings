@@ -12,6 +12,7 @@ const AddProduct = () => {
         category: "",
         description: "",
         colour:"",
+        price:"",
         dimension:""
     });    
     
@@ -31,7 +32,7 @@ const AddProduct = () => {
         setError(null);
         setLoading(true);
 
-        if (!image || !productDetails.name || !productDetails.category || !productDetails.description || !productDetails.colour || !productDetails.dimension) {
+        if (!image || !productDetails.name || !productDetails.category || !productDetails.description || !productDetails.colour || !productDetails.dimension ||! !productDetails.price) {
             toast.error("All fields are required.");
             setLoading(false);
             return;
@@ -44,9 +45,10 @@ const AddProduct = () => {
         formData.append('description', productDetails.description);
         formData.append('colour', productDetails.colour);
         formData.append('dimension', productDetails.dimension);
+        formData.append('price', productDetails.price);
 
         try {
-            let response = await fetch('https://roofings-server.vercel.app/api/product/add-product', {
+            let response = await fetch('http://localhost:5000/api/product/add-product', {
                 method: 'POST',
                 body: formData,
             });
@@ -111,6 +113,18 @@ const AddProduct = () => {
                     name="description"
                     placeholder='Type here'
                 />
+            </div>
+            <div className="addproduct-price">
+                <div className="addproduct-itemfield">
+                    <p>Price</p>
+                    <input
+                        value={productDetails.price}
+                        onChange={changeHandler}
+                        type='text'
+                        name="price"
+                        placeholder='Type here'
+                    />
+                </div>
             </div>
             <div className="addproduct-itemfield">
                 <p>Product Category</p>

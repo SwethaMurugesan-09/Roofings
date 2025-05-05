@@ -5,7 +5,7 @@ export const addProduct = async(req,res)=>{
     const {name,colour,dimension,category,description}=req.body
     const imageFile = req.file
 
-    if(!name || !colour || !dimension || !category || !description || !imageFile)
+    if(!name || !colour || !dimension || !category || !description || !imageFile || !price)
     {
         return res.json({success:false,message:"Missing Detials"})
     }
@@ -18,6 +18,7 @@ export const addProduct = async(req,res)=>{
             dimension,
             category,
             description,
+            price,
             image:imageUpload.secure_url
         })
         await newProduct.save()
