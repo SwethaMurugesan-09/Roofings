@@ -2,7 +2,7 @@ import Product from "../models/Product.js";
 import {v2 as cloudinary} from 'cloudinary'
 
 export const addProduct = async(req,res)=>{
-    const {name,colour,dimension,category,description}=req.body
+    const {name,colour,dimension,category,description,price}=req.body
     const imageFile = req.file
 
     if(!name || !colour || !dimension || !category || !description || !imageFile || !price)

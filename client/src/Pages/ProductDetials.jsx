@@ -78,6 +78,7 @@ const ProductDetails = () => {
             <p><strong>Material: </strong> {product.name}</p>
             <p><strong>Color: </strong>{product.colour}</p>
             <p><strong>Dimension: </strong>{product.dimension}</p>
+            <p><strong>Price: </strong>₹{product.price}</p>
             <p className="product-detials-desc">{product.description}</p>
             <div className="product-detials-btn">
                 <button onClick={handleAddToTopPicks} className="product-detials-favbtn">Add to Cart</button>

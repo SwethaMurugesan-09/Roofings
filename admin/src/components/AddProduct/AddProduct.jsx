@@ -32,7 +32,7 @@ const AddProduct = () => {
         setError(null);
         setLoading(true);
 
-        if (!image || !productDetails.name || !productDetails.category || !productDetails.description || !productDetails.colour || !productDetails.dimension ||! !productDetails.price) {
+        if (!image || !productDetails.name || !productDetails.category || !productDetails.description || !productDetails.colour || !productDetails.dimension || !productDetails.price) {
             toast.error("All fields are required.");
             setLoading(false);
             return;
