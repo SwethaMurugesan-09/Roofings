@@ -12,7 +12,7 @@
     text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.3s ease-in-out;
-    width: 320px;
+    width: 300px;
 }
 
 .top-pick-item:hover {
@@ -21,22 +21,22 @@
 }
 .top-picks h1{
     text-align: center;
-    font-size: 45px;
-    margin: 50px;
+    font-size: 30px;
+    margin: 20px;
 }
 .top-picks-container{
-        display: flex;
-        flex-wrap: wrap; 
-        justify-content: center; 
-        align-items: center; 
-        gap: 50px;
-        max-width: 100%; 
-        margin: 0 auto;  
+        display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 30px;
+    margin-left:20px;
+    margin-right: 10px;
+    max-width: 150px;
 }
 
 .top-pick-img{
-    width: 300px;
-    height: 250px;
+    width: 250px;
+    height: 200px;
     border-radius: 10px;
 }
 .top-pick-item p{

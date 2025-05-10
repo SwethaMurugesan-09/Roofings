@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Login.css'; 
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
 
@@ -15,7 +16,7 @@ const AuthPage = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!loginEmail || !loginPassword) {
-            alert("Please fill in all fields.");
+            toast.error("Please fill in all fields.");
             return;
         }
 
@@ -29,22 +30,25 @@ const AuthPage = () => {
             const data = await response.json();
             console.log("Login response:", data);
 
-            if (response.ok && data.token) {
-                localStorage.setItem('auth-token', data.token);
+           if (response.ok && data.token) {
+            localStorage.setItem('auth-token', data.token);
+            toast.success("Logged in successfully");
+            setTimeout(() => {
                 window.location.replace("/");
+            }, 2500);
             } else {
-                alert(data.errors || data.message || "Login failed.");
+                toast.error(data.errors || data.message || "Login failed.");
             }
         } catch (err) {
             console.error("Login error:", err);
-            alert("An error occurred. Please try again.");
+            toast.error("An error occurred. Please try again.");
         }
     };
 
     const handleSignup = async (e) => {
         e.preventDefault();
         if (!signupUsername || !signupEmail || !signupPassword || !signupNumber) {
-            alert("Please fill in all fields.");
+            toast.error("Please fill in all fields.");
             return;
         }
 
@@ -69,13 +73,14 @@ const AuthPage = () => {
 
             if (response.ok && data.token) {
                 localStorage.setItem('auth-token', data.token);
+                toast.success("Signed up successfully")
                 window.location.replace("/");
             } else {
-                alert(data.errors || data.message || "Signup failed.");
+                toast.error(data.errors || data.message || "Signup failed.");
             }
         } catch (error) {
             console.error("Error during signup:", error);
-            alert("There was an error processing your request.");
+            toast.error("There was an error processing your request.");
         }
     };
 

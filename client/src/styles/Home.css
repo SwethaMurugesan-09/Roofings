@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     min-height: 80vh;
+    margin-top: -40px;
 }
 .home-left {
     font-size: 2rem;
@@ -42,8 +43,7 @@
 }
 .home-right {
     width: 60%; 
-    max-width: 60%;
-    overflow: hidden;
+    max-width: 90%;
     margin-right: 30px;
 }
 
@@ -84,7 +84,7 @@
     font-size: 33px;
 }
 .home-partners{
-    margin-top: -50px;
+    margin-top: -100px;
     text-align: center;
     font-size: 30px;
 }
@@ -98,7 +98,6 @@
   .home-partners h3 {
     font-size: 34px;
     font-weight: bold;
-    margin-bottom: 20px;
   }
   
   .home-partners div {

@@ -103,3 +103,31 @@ export const removeFavorite = async (req, res) => {
         res.status(500).json({ message: 'Error removing favorite', error: error.message });
     }
 };
+
+export const syncFavourites = async (req, res) => {
+  try {
+    const { userId, favourites } = req.body;
+
+    const user = await Users.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const uniqueFavourites = favourites.filter(
+      id => !user.favourites.includes(id)
+    );
+
+    if (uniqueFavourites.length > 0) {
+      user.favourites.push(...uniqueFavourites);
+      await user.save();
+    }
+
+    res.status(200).json({
+      message: 'Favourites synced successfully',
+      favourites: user.favourites
+    });
+  } catch (error) {
+    console.error("Sync error:", error); 
+    res.status(500).json({ message: 'Error syncing favourites', error: error.message });
+  }
+};

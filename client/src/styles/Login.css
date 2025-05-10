@@ -66,7 +66,13 @@
     margin-top: 8px;
     transition: background-color 0.3s;
   }
-  
+  .logout-btn{
+    background: none;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+  }
+
   .button:hover {
     background-color: #02345a;
   }

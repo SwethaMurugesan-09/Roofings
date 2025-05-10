@@ -7,6 +7,7 @@ import ProductDetials from "./Pages/ProductDetials";
 import Contact from "./Pages/Contact";
 import Toppicks from "./Pages/Toppicks";
 import Footer from "./components/Footer/Footer";
+import { ToastContainer } from 'react-toastify';
 import Login from "./Pages/Login";
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/favourites" element={<Toppicks/>}/>
           <Route path="/login" element={<Login />}/>
       </Routes>
+                      <ToastContainer />
+
       <Footer/>
     </>
     </div>

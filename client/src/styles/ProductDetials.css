@@ -6,8 +6,9 @@
 }
 .product-details-header{
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 30px;
+    margin-bottom: -4px;
 }
 
 .product-details-left{
@@ -56,12 +57,12 @@
 
 }
 .similiar-products{
-    margin: 50px;
+    margin: 20px;
 }
 .similiar-products h3{
     text-align: center;
     font-size: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-top: -10px;
 }
 .similar-products-container {

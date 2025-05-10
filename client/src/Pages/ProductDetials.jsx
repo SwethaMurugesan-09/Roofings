@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import '../styles/ProductDetials.css'
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -60,10 +63,12 @@ const ProductDetails = () => {
 
     if (!exists) {
       favourites.push(product);
+      toast.success("Product added to cart")
       localStorage.setItem("favourites", JSON.stringify(favourites));
     }
-
-    navigate('/favourites');
+    else{
+      toast.error("Product already in cart")
+    }
   };
 
 
@@ -93,7 +98,7 @@ const ProductDetails = () => {
             <p>No similar products available</p>
           ) : (
             similarProducts.map((item) => (
-              <div key={item._id} className="similar-product-item">
+            <div key={item._id} className="similar-product-item">
                 <img src={item.image} alt={item.name} className="similar-product-img" />
                 <div className="similiar-products-material">
                   <div>
