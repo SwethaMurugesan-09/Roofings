@@ -25,7 +25,7 @@ const Product = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/product/getProduct");
+                const response = await fetch("https://roofings-server.vercel.app/api/product/getProduct");
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
