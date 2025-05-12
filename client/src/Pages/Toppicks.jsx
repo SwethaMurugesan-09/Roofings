@@ -14,7 +14,6 @@ const Toppicks = () => {
     const savedTopPicks = JSON.parse(localStorage.getItem("favourites")) || [];
     setTopPicks(savedTopPicks);
 
-    // Optional: auto-remove user if token is invalid
     if (!isTokenValid()) {
       localStorage.removeItem("user");
     }
@@ -29,21 +28,32 @@ const Toppicks = () => {
     localStorage.setItem("favourites", JSON.stringify(updatedTopPicks));
   };
 
+  // Decode JWT Base64URL payload
+  const decodeTokenPayload = (token) => {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => `%${('00' + c.charCodeAt(0).toString(16)).slice(-2)}`)
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      return null;
+    }
+  };
+
   // Function to validate JWT token
   const isTokenValid = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.token) return false;
 
-    const token = user.token;
+    const payload = decodeTokenPayload(user.token);
+    if (!payload || !payload.exp) return false;
 
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const expiry = payload.exp;
-      return expiry * 1000 > Date.now(); // Check if not expired
-    } catch (err) {
-      console.error("Invalid token:", err);
-      return false;
-    }
+    return payload.exp * 1000 > Date.now();
   };
 
   const handleCheckoutClick = () => {
