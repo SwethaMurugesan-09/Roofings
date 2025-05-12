@@ -13,6 +13,11 @@ const Toppicks = () => {
   useEffect(() => {
     const savedTopPicks = JSON.parse(localStorage.getItem("favourites")) || [];
     setTopPicks(savedTopPicks);
+
+    // Optional: auto-remove user if token is invalid
+    if (!isTokenValid()) {
+      localStorage.removeItem("user");
+    }
   }, []);
 
   const totalAmount = topPicks.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
@@ -24,9 +29,25 @@ const Toppicks = () => {
     localStorage.setItem("favourites", JSON.stringify(updatedTopPicks));
   };
 
-  const handleCheckoutClick = () => {
+  // Function to validate JWT token
+  const isTokenValid = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (!user || !user.token) return false;
+
+    const token = user.token;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiry = payload.exp;
+      return expiry * 1000 > Date.now(); // Check if not expired
+    } catch (err) {
+      console.error("Invalid token:", err);
+      return false;
+    }
+  };
+
+  const handleCheckoutClick = () => {
+    if (isTokenValid()) {
       setShowPayPal(true);
     } else {
       toast.error("Please log in to proceed to checkout");
