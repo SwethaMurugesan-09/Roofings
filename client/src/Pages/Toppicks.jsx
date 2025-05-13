@@ -45,16 +45,15 @@ const Toppicks = () => {
     }
   };
 
-  // Function to validate JWT token
-  const isTokenValid = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user || !user.token) return false;
+ const isTokenValid = () => {
+  const token = localStorage.getItem("auth-token");
+  if (!token) return false;
 
-    const payload = decodeTokenPayload(user.token);
-    if (!payload || !payload.exp) return false;
+  const payload = decodeTokenPayload(token);
+  if (!payload || !payload.exp) return false;
 
-    return payload.exp * 1000 > Date.now();
-  };
+  return payload.exp * 1000 > Date.now();
+};
 
   const handleCheckoutClick = () => {
     if (isTokenValid()) {
