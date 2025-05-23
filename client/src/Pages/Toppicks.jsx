@@ -28,7 +28,6 @@ const Toppicks = () => {
     localStorage.setItem("favourites", JSON.stringify(updatedTopPicks));
   };
 
-  // Decode JWT Base64URL payload
   const decodeTokenPayload = (token) => {
     try {
       const base64Url = token.split('.')[1];
@@ -77,7 +76,6 @@ const Toppicks = () => {
               <img src={item.image} alt={item.name} className="top-pick-img" />
               <div className="top-picks-detials">
                 <p>{item.name}</p>
-                <p className="top-pick-price">₹{item.price}</p>
                 <button
                   onClick={() => navigate(`/products/${item._id}`)}
                   className="top-picks-btn"
@@ -95,69 +93,6 @@ const Toppicks = () => {
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {topPicks.length > 0 && (
-        <div className="cart-summary">
-          <h2>Cart total</h2>
-          <div className="cart-row">
-            <span>Subtotal</span>
-            <span>₹{totalAmount.toFixed(2)}</span>
-          </div>
-          <div className="cart-row">
-            <span>Shipping Fee</span>
-            <span>Free</span>
-          </div>
-          <hr />
-          <div className="cart-row total">
-            <strong>Total</strong>
-            <strong>₹{totalAmount.toFixed(2)}</strong>
-          </div>
-
-          {!showPayPal ? (
-            <button className="checkout-btn" onClick={handleCheckoutClick}>
-              PROCEED TO CHECKOUT
-            </button>
-          ) : (
-            <PayPalScriptProvider
-              options={{
-                "client-id": "AU1uQvngJxUaDtLQGxWO4V1_W5UocfDgMuUXYAFtZpYhM1owqdfLipYOGSw_uSYzRvG5ckYsu2JPF45H",
-                currency: "USD",
-                intent: "capture",
-                vault: false
-              }}
-            >
-              <PayPalButtons
-                style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
-                forceReRender={[totalAmount]}
-                createOrder={(data, actions) => {
-                  return actions.order.create({
-                    purchase_units: [{
-                      amount: {
-                        value: totalAmount.toFixed(2),
-                      },
-                    }],
-                    application_context: {
-                      shipping_preference: "NO_SHIPPING"
-                    }
-                  });
-                }}
-                onApprove={async (data, actions) => {
-                  await actions.order.capture();
-                  toast.success("Payment successful! Redirecting...");
-                  localStorage.removeItem("favourites");
-                  setTimeout(() => {
-                    navigate('/');
-                  }, 2000);
-                }}
-                onError={(err) => {
-                  console.error("PayPal Checkout Error:", err);
-                  toast.error("Payment failed. Please try again.");
-                }}
-              />
-            </PayPalScriptProvider>
-          )}
         </div>
       )}
     </div>

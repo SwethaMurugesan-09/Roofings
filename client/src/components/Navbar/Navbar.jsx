@@ -38,13 +38,6 @@ const Navbar = () => {
         <li>
           <Link to="/contact">Contact</Link>
         </li>
-        <li>
-          {isLoggedIn ? (
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
-          ) : (
-            <Link to="/login">Login</Link>
-          )}
-        </li>
 
       </div>
     </div>
